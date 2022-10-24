@@ -1,5 +1,6 @@
 package entities.executors
 
+import Context
 import entities.Argument
 import entities.Keyword
 import entities.PipeArgument
@@ -20,7 +21,7 @@ class GrepExecutor(curPath: Path): Keyword {
      * @param arguments (all arguments to grep)
      * @return grep result String
      */
-    override fun execute(arguments: List<Argument>): Optional<String> {
+    override fun execute(arguments: List<Argument>, context: Context): Optional<String> {
         val parser = ArgParser("superbash")
         var regex by parser.argument(ArgType.String, description = "regex")
         val files by parser.argument(ArgType.String, description = "vararg files").vararg()

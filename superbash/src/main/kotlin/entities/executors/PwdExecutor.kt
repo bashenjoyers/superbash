@@ -1,5 +1,6 @@
 package entities.executors
 
+import Context
 import entities.Argument
 import entities.Keyword
 import java.nio.file.Path
@@ -16,5 +17,5 @@ class PwdExecutor(private val curPath: Path): Keyword {
      * @param arguments (ignored since pwd does not require any arguments)
      * @return current path String
      */
-    override fun execute(arguments: List<Argument>): Optional<String> = Optional.of(curPath.toString() + "\n")
+    override fun execute(arguments: List<Argument>, context: Context): Optional<String> = Optional.of(curPath.toString() + "\n")
 }

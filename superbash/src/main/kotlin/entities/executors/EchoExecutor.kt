@@ -1,5 +1,6 @@
 package entities.executors
 
+import Context
 import entities.Argument
 import entities.Keyword
 import entities.PipeArgument
@@ -14,7 +15,7 @@ class EchoExecutor: Keyword {
      * @param arguments stores strings to `echo`
      * @return string to print
      */
-    override fun execute(arguments: List<Argument>): Optional<String> {
+    override fun execute(arguments: List<Argument>,context: Context): Optional<String> {
         val updatedArguments = if (arguments.isNotEmpty() && arguments.last() is PipeArgument) {
              arguments.dropLast(1)
         } else arguments

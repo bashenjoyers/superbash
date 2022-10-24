@@ -1,5 +1,6 @@
 package entities.executors
 
+import Context
 import entities.Argument
 import entities.Keyword
 import java.lang.Exception
@@ -15,7 +16,7 @@ class Exit: Keyword {
      * @param arguments stores arguments for exit
      * @return empty if it didn't exit
      */
-    override fun execute(arguments: List<Argument>): Optional<String> {
+    override fun execute(arguments: List<Argument>, context: Context): Optional<String> {
         if (arguments.size > 1) {
             return Optional.of("exit: too many arguments")
         }

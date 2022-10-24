@@ -1,5 +1,6 @@
 package entities.executors
 
+import Context
 import entities.Argument
 import entities.CLIArgument
 import org.junit.Assert
@@ -13,18 +14,19 @@ import kotlin.io.path.absolute
 class WCExecutorTest {
     private val curPath = Paths.get("/")
     private val wcExecutor = WCExecutor(curPath)
+    private val context = Context()
 
     @Test
     fun testWcFile1() {
         val file1 = listOf<Argument>(CLIArgument(FILE1_TEST.toString()))
-        val result = wcExecutor.execute(file1)
+        val result = wcExecutor.execute(file1, context)
         Assert.assertEquals("$FILE1_LINES $FILE1_WORDS $FILE1_BYTES test_file1.txt\n", result.get())
     }
 
     @Test
     fun testWcFile1AndFile2() {
         val file1AndFile2 = listOf<Argument>(CLIArgument(FILE1_TEST.toString()), CLIArgument(FILE2_TEST.toString()))
-        val result = wcExecutor.execute(file1AndFile2)
+        val result = wcExecutor.execute(file1AndFile2, context)
         Assert.assertEquals(
             "$FILE1_LINES $FILE1_WORDS $FILE1_BYTES test_file1.txt\n$FILE2_LINES $FILE2_WORDS $FILE2_BYTES test_file2.txt\n$TOTAL_LINES $TOTAL_WORDS $TOTAL_BYTES total\n",
             result.get()

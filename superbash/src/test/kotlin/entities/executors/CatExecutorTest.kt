@@ -1,5 +1,6 @@
 package entities.executors
 
+import Context
 import entities.Argument
 import entities.CLIArgument
 import org.junit.Assert
@@ -13,18 +14,19 @@ import kotlin.io.path.absolute
 class CatExecutorTest {
     private val curPath = Paths.get("/")
     private val catExecutor = CatExecutor(curPath)
+    private val context = Context()
 
     @Test
     fun testCatFile1() {
         val file1 = listOf<Argument>(CLIArgument(FILE1_TEST.toString()))
-        val result = catExecutor.execute(file1)
+        val result = catExecutor.execute(file1, context)
         Assert.assertEquals(FILE1_CONTENT, result.get())
     }
 
     @Test
     fun testCatFile1AndFile2() {
         val file1AndFile2 = listOf<Argument>(CLIArgument(FILE1_TEST.toString()), CLIArgument(FILE2_TEST.toString()))
-        val result = catExecutor.execute(file1AndFile2)
+        val result = catExecutor.execute(file1AndFile2, context)
         Assert.assertEquals("$FILE1_CONTENT$FILE2_CONTENT", result.get())
     }
 

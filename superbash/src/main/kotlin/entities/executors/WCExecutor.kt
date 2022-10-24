@@ -1,5 +1,6 @@
 package entities.executors
 
+import Context
 import entities.Argument
 import entities.Keyword
 import entities.PipeArgument
@@ -35,7 +36,7 @@ class WCExecutor(curPath: Path): Keyword {
      * @param arguments stores files on which run `wc`
      * @return statistics for every file
      */
-    override fun execute(arguments: List<Argument>): Optional<String> {
+    override fun execute(arguments: List<Argument>, context: Context): Optional<String> {
         val updatedArguments = if (arguments.size > 1 && arguments.last() is PipeArgument) {
             arguments.dropLast(1)
         } else arguments

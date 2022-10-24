@@ -17,6 +17,8 @@ class ExternalExecutorTest {
         WINDOWS, LINUX
     }
 
+
+
     fun getOS(): OS? {
         val os = System.getProperty("os.name").toLowerCase()
         return when {
@@ -63,13 +65,13 @@ class ExternalExecutorTest {
 
     private fun testExternalExecutorIfLinux() {
         val externalExecutor = ExternalExecutor(curPath, context, Paths.get(command))
-        val result = externalExecutor.execute(listOf(CLIArgument("123")))
+        val result = externalExecutor.execute(listOf(CLIArgument("123")), context)
         Assert.assertEquals("123\n", result.get())
     }
 
     private fun testExternalExecutorIfWindows() {
         val externalExecutor = ExternalExecutor(curPath, context, Paths.get(command))
-        val result = externalExecutor.execute(listOf(CLIArgument("where")))
+        val result = externalExecutor.execute(listOf(CLIArgument("where")), context)
         Assert.assertEquals("$WIN_WHERE_PATH\\where.exe\r\n", result.get())
     }
 

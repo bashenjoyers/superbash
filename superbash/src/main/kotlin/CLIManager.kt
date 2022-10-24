@@ -2,13 +2,14 @@ import entities.*
 import exceptions.Constants
 import parsing.ContentParser
 import parsing.VariablesSubstitutor
+import java.io.File
 import java.util.*
 import kotlin.jvm.optionals.getOrDefault
 
 /**
  * Class to manage interaction with user
  */
-class CLIManager(startDirectory: String = "/") {
+class CLIManager(startDirectory: String = File("").absolutePath) {
     private val context = Context()
 
     init {
@@ -41,7 +42,7 @@ class CLIManager(startDirectory: String = "/") {
                 is Keyword -> {
                     if (keyword != null) {
                         pipeArgument?.run { arguments.add(this) }
-                        pipeArgument = PipeArgument(keyword.execute(arguments).getOrDefault(""))
+                        pipeArgument = PipeArgument(keyword.execute(arguments, context).getOrDefault(""))
                         arguments.clear()
                     }
                     keyword = token
@@ -52,7 +53,7 @@ class CLIManager(startDirectory: String = "/") {
             }
         }
         pipeArgument?.run { arguments.add(this) }
-        keyword?.execute(arguments) ?: Optional.empty()
+        keyword?.execute(arguments, context) ?: Optional.empty()
     } catch (ex: Exception) {
         Optional.of((ex.message ?: Constants.UNKNOWN_ERROR) + '\n')
     }

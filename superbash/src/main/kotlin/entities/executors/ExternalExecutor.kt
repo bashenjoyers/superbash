@@ -29,7 +29,7 @@ class ExternalExecutor(curPath: Path, private val context: Context, private val 
      * @param arguments stores arguments for binary
      * @return Binary output
      */
-    override fun execute(arguments: List<Argument>): Optional<String> {
+    override fun execute(arguments: List<Argument>, context: Context): Optional<String> {
         val process = ProcessBuilder(binaryPath.name, *arguments.map { it.getArgument() }.toTypedArray())
             .directory(fileSystemHelper.curPath.toFile())
             .redirectOutput(ProcessBuilder.Redirect.PIPE)

@@ -5,8 +5,10 @@ import java.lang.Exception
 import java.nio.file.NoSuchFileException
 import java.nio.file.Path
 import java.nio.file.Paths
+import kotlin.io.path.absolutePathString
 import kotlin.io.path.exists
 import kotlin.io.path.name
+import kotlin.io.path.pathString
 
 class FileSystemHelper(val curPath: Path) {
     /**
@@ -17,7 +19,7 @@ class FileSystemHelper(val curPath: Path) {
     fun tryGetFile(relPath: String): File = if (isAbsolute(relPath)) {
         Paths.get(relPath).toFile()
     } else {
-        Paths.get(curPath.name + relPath).toFile()
+        Paths.get(curPath.absolutePathString(), relPath).toFile()
     }
 
     /**
@@ -29,7 +31,7 @@ class FileSystemHelper(val curPath: Path) {
         val path = if (isAbsolute(relPath)) {
             Paths.get(relPath)
         } else {
-            Paths.get(curPath.name + relPath)
+            Paths.get(curPath.absolutePathString(), relPath)
         }
 
         if (path.exists()) return path
